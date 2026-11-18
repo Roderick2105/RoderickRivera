@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roderick Rivera | Ciberseguridad & Tecnología</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter y JetBrains Mono para toques de ciberseguridad -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        crimson: {
+                            500: '#ef4444',
+                            600: '#dc2626',
+                            700: '#b91c1c',
+                            900: '#7f1d1d',
+                        }
+                    },
+                    animation: {
+                        'blob': 'blob 10s infinite',
+                        'blob-slow': 'blob 15s infinite reverse',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1) rotate(0deg)' },
+                            '33%': { transform: 'translate(40px, -60px) scale(1.15) rotate(120deg)' },
+                            '66%': { transform: 'translate(-30px, 30px) scale(0.9) rotate(240deg)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1) rotate(360deg)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Estilos personalizados para el efecto Liquid Glass */
+        body {
+            background-color: #050505;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Paneles de cristal líquido */
+        .liquid-glass {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.015) 100%);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-top: 1px solid rgba(255, 255, 255, 0.25);
+            border-left: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 
+                0 12px 40px 0 rgba(0, 0, 0, 0.8),
+                inset 0 0 20px rgba(255, 255, 255, 0.02);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .liquid-glass:hover {
+            border-color: rgba(239, 68, 68, 0.45);
+            box-shadow: 
+                0 15px 45px 0 rgba(220, 38, 38, 0.2),
+                inset 0 0 25px rgba(239, 68, 68, 0.08);
+            transform: translateY(-4px);
+        }
+
+        /* Tarjetas internas más sutiles */
+        .liquid-pill {
+            background: rgba(15, 15, 15, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .liquid-pill:hover {
+            background: rgba(220, 38, 38, 0.15);
+            border-color: rgba(239, 68, 68, 0.5);
+            transform: scale(1.02);
+        }
+
+        /* Orbes líquidos de fondo */
+        .liquid-orb {
+            border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
+            filter: blur(70px);
+            opacity: 0.55;
+            pointer-events: none;
+        }
+
+        /* Barra de desplazamiento personalizada */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050505;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #7f1d1d;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #dc2626;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-red-600 selection:text-white relative min-h-screen">
+
+    <!-- Fondo Dinámico con Orbes de Cristal Líquido (Negro y Rojo) -->
+    <div class="fixed inset-0 overflow-hidden z-0 pointer-events-none">
+        <!-- Orbe Superior Izquierdo -->
+        <div class="liquid-orb absolute -top-24 -left-24 w-96 h-96 bg-gradient-to-tr from-red-900 via-red-600 to-rose-500 animate-blob"></div>
+        <!-- Orbe Central Derecho -->
+        <div class="liquid-orb absolute top-1/3 -right-32 w-[30rem] h-[30rem] bg-gradient-to-bl from-red-800 via-crimson-600 to-black animate-blob-slow"></div>
+        <!-- Orbe Inferior Izquierdo -->
+        <div class="liquid-orb absolute -bottom-32 left-1/4 w-96 h-96 bg-gradient-to-t from-red-950 via-red-700 to-transparent animate-blob"></div>
+        <!-- Cuadrícula sutil tecnológica -->
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:4rem_4rem]"></div>
+    </div>
+
+    <!-- Barra de Navegación Flotante -->
+    <header class="fixed top-4 left-0 right-0 z-50 px-4 sm:px-6 lg:px-8">
+        <nav class="max-w-5xl mx-auto liquid-glass rounded-full px-6 py-3 flex items-center justify-between">
+            <a href="#" class="flex items-center space-x-2 group">
+                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-red-500 to-red-800 flex items-center justify-center shadow-lg shadow-red-600/30 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-shield-halved text-white text-sm"></i>
+                </div>
+                <span class="font-bold tracking-wider text-white text-sm sm:text-base">R<span class="text-red-500">.</span>RIVERA</span>
+            </a>
+
+            <!-- Enlaces Desktop -->
+            <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-300">
+                <a href="#sobre-mi" class="hover:text-red-400 transition-colors">Sobre mí</a>
+                <a href="#habilidades" class="hover:text-red-400 transition-colors">Habilidades</a>
+                <a href="#estudios" class="hover:text-red-400 transition-colors">Estudios</a>
+                <a href="#contacto" class="hover:text-red-400 transition-colors">Contacto</a>
+            </div>
+
+            <!-- Botón LinkedIn Rápido -->
+            <a href="https://www.linkedin.com/search/results/all/?keywords=Roderick%20Rivera" target="_blank" rel="noopener noreferrer" 
+               class="px-4 py-2 rounded-full bg-red-600/90 hover:bg-red-500 text-white text-xs sm:text-sm font-semibold transition-all shadow-lg shadow-red-600/30 flex items-center space-x-2">
+                <i class="fa-brands fa-linkedin"></i>
+                <span>LinkedIn</span>
+            </a>
+        </nav>
+    </header>
+
+    <!-- Contenido Principal -->
+    <main class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20 space-y-16 sm:space-y-24">
+
+        <!-- Sección Hero / Presentación Principal -->
+        <section id="inicio" class="text-center sm:text-left">
+            <div class="liquid-glass rounded-3xl p-8 sm:p-12 relative overflow-hidden">
+                <!-- Brillo superior decorativo -->
+                <div class="absolute top-0 left-1/4 right-1/4 h-px bg-gradient-to-r from-transparent via-red-500 to-transparent opacity-75"></div>
+
+                <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+                    <div class="space-y-5 max-w-2xl">
+                        <div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-mono">
+                            <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
+                            <span>CIBERSEGURIDAD & DEFENSA DIGITAL</span>
+                        </div>
+
+                        <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white">
+                            Roderick <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-red-400 to-white">Rivera</span>
+                        </h1>
+
+                        <p class="text-lg sm:text-xl text-gray-300 font-light">
+                            Estudiante de Licenciatura en Ciberseguridad • <span class="text-white font-medium">Universidad Tecnológica de Panamá</span>
+                        </p>
+
+                        <div class="pt-2 flex flex-wrap justify-center sm:justify-start gap-4">
+                            <a href="#sobre-mi" class="px-6 py-3 rounded-2xl bg-gradient-to-r from-red-600 to-red-800 hover:from-red-500 hover:to-red-700 text-white font-semibold shadow-lg shadow-red-900/40 transition-all flex items-center space-x-2">
+                                <span>Conocer más</span>
+                                <i class="fa-solid fa-arrow-down text-xs"></i>
+                            </a>
+                            <a href="#contacto" class="px-6 py-3 rounded-2xl liquid-pill text-white font-medium hover:text-red-300 transition-all flex items-center space-x-2">
+                                <i class="fa-solid fa-paper-plane text-red-500"></i>
+                                <span>Conectar</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Avatar / Emblema Visual Liquid Glass -->
+                    <div class="relative flex-shrink-0">
+                        <div class="w-40 h-40 sm:w-48 sm:h-48 rounded-full liquid-glass flex items-center justify-center relative group">
+                            <div class="absolute inset-2 rounded-full border border-red-500/30 border-dashed animate-[spin_20s_linear_infinite]"></div>
+                            <div class="w-32 h-32 sm:w-36 sm:h-36 rounded-full bg-gradient-to-tr from-black via-zinc-900 to-red-950 flex flex-col items-center justify-center border border-white/10 shadow-inner">
+                                <i class="fa-solid fa-user-shield text-4xl sm:text-5xl text-red-500 mb-2 group-hover:scale-110 transition-transform"></i>
+                                <span class="font-mono text-xs text-gray-400 tracking-widest">SEC_ANALYST</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección: Más sobre mí -->
+        <section id="sobre-mi" class="scroll-mt-28">
+            <div class="liquid-glass rounded-3xl p-8 sm:p-10">
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="w-10 h-10 rounded-2xl bg-red-600/20 border border-red-500/30 flex items-center justify-center text-red-500">
+                        <i class="fa-solid fa-terminal"></i>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white">Más sobre mí</h2>
+                </div>
+
+                <div class="space-y-4 text-gray-200 leading-relaxed text-base sm:text-lg font-light">
+                    <p>
+                        Soy <strong class="text-white font-semibold">Roderick Rivera</strong>, estudiante de la <span class="text-red-400 font-medium">Licenciatura en Ciberseguridad</span> en la <strong class="text-white font-semibold">Universidad Tecnológica de Panamá</strong>.
+                    </p>
+                    <p>
+                        Me apasiona el conocimiento tecnológico en general, pero sobre todo la ciberseguridad, área donde aspiro a convertirme en un excelente profesional dentro de este vasto mundo tecnológico.
+                    </p>
+                    <div class="p-5 rounded-2xl bg-black/50 border-l-4 border-red-600 text-gray-300 italic">
+                        "Mi propósito es proteger no solo a las empresas y sus infraestructuras críticas, sino también a las personas cotidianas que son víctimas de phishing y otros tipos de ataques cibernéticos."
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección: Conocimientos y Habilidades -->
+        <section id="habilidades" class="scroll-mt-28">
+            <div class="liquid-glass rounded-3xl p-8 sm:p-10">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-2xl bg-red-600/20 border border-red-500/30 flex items-center justify-center text-red-500">
+                            <i class="fa-solid fa-microchip"></i>
+                        </div>
+                        <h2 class="text-2xl sm:text-3xl font-bold text-white">Conocimientos y Habilidades</h2>
+                    </div>
+                    <span class="font-mono text-xs text-red-400 bg-red-950/50 border border-red-500/20 px-3 py-1 rounded-full self-start sm:self-auto">
+                        STACK TÉCNICO
+                    </span>
+                </div>
+
+                <!-- Grid de Habilidades -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    
+                    <!-- Habilidad 1: SOC Nivel 2 -->
+                    <div class="liquid-pill rounded-2xl p-5 flex items-start space-x-4">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-red-600 to-red-900 flex items-center justify-center flex-shrink-0 text-white shadow-md">
+                            <i class="fa-solid fa-radar text-lg"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-white text-base">SOC Nivel 2</h3>
+                            <p class="text-xs text-gray-400 mt-1">Análisis de incidentes, monitoreo de amenazas y respuesta defensiva.</p>
+                        </div>
+                    </div>
+
+                    <!-- Habilidad 2: Redes Básico -->
+                    <div class="liquid-pill rounded-2xl p-5 flex items-start space-x-4">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-zinc-800 to-black border border-red-500/30 flex items-center justify-center flex-shrink-0 text-red-500">
+                            <i class="fa-solid fa-network-wired text-lg"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-white text-base">Redes Básico</h3>
+                            <p class="text-xs text-gray-400 mt-1">Protocolos, direccionamiento IP, conectividad y arquitectura de red.</p>
+                        </div>
+                    </div>
+
+                    <!-- Habilidad 3: HTML & CSS -->
+                    <div class="liquid-pill rounded-2xl p-5 flex items-start space-x-4">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-zinc-800 to-black border border-red-500/30 flex items-center justify-center flex-shrink-0 text-red-500">
+                            <i class="fa-solid fa-code text-lg"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-white text-base">HTML & CSS</h3>
+                            <p class="text-xs text-gray-400 mt-1">Maquetación web estructurada, diseño responsivo y estilos modernos.</p>
+                        </div>
+                    </div>
+
+                    <!-- Habilidad 4: PHP -->
+                    <div class="liquid-pill rounded-2xl p-5 flex items-start space-x-4">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-zinc-800 to-black border border-red-500/30 flex items-center justify-center flex-shrink-0 text-red-500">
+                            <i class="fa-brands fa-php text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-white text-base">PHP</h3>
+                            <p class="text-xs text-gray-400 mt-1">Desarrollo backend, lógica del lado del servidor y gestión de datos.</p>
+                        </div>
+                    </div>
+
+                    <!-- Habilidad 5: Microcontroladores -->
+                    <div class="liquid-pill rounded-2xl p-5 flex items-start space-x-4 sm:col-span-2 lg:col-span-2">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-red-600/80 to-black border border-red-500/40 flex items-center justify-center flex-shrink-0 text-white">
+                            <i class="fa-solid fa-memory text-lg"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-white text-base">Microcontroladores</h3>
+                            <p class="text-xs text-gray-400 mt-1">Programación de hardware, sistemas embebidos, sensores e integración electrónica.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección: Formación Académica (Estudios) -->
+        <section id="estudios" class="scroll-mt-28">
+            <div class="liquid-glass rounded-3xl p-8 sm:p-10">
+                <div class="flex items-center space-x-3 mb-8">
+                    <div class="w-10 h-10 rounded-2xl bg-red-600/20 border border-red-500/30 flex items-center justify-center text-red-500">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white">Formación Académica</h2>
+                </div>
+
+                <!-- Línea de tiempo vertical -->
+                <div class="relative border-l-2 border-red-600/40 ml-3 sm:ml-6 space-y-8 pb-2">
+                    
+                    <!-- Estudio 1: Universidad Tecnológica de Panamá -->
+                    <div class="relative pl-6 sm:pl-8 group">
+                        <span class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-red-600 ring-4 ring-red-600/20 group-hover:scale-125 transition-transform"></span>
+                        <div class="liquid-pill rounded-2xl p-5 border-red-500/30">
+                            <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
+                                <span class="px-3 py-0.5 rounded-full bg-red-600 text-white text-xs font-bold tracking-wide">
+                                    ACTUALMENTE
+                                </span>
+                                <span class="font-mono text-xs text-red-400">Estudios Superiores</span>
+                            </div>
+                            <h3 class="text-lg sm:text-xl font-bold text-white mt-2">Universidad Tecnológica de Panamá (UTP)</h3>
+                            <p class="text-gray-300 text-sm mt-1">Licenciatura en Ciberseguridad</p>
+                        </div>
+                    </div>
+
+                    <!-- Estudio 2: Media IPT Jeptha B. Duncan -->
+                    <div class="relative pl-6 sm:pl-8 group">
+                        <span class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-zinc-700 border-2 border-red-500 group-hover:bg-red-500 transition-colors"></span>
+                        <div class="liquid-pill rounded-2xl p-5">
+                            <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
+                                <span class="px-3 py-0.5 rounded-full bg-white/10 text-gray-200 text-xs font-mono">
+                                    2023
+                                </span>
+                                <span class="font-mono text-xs text-gray-400">Educación Media</span>
+                            </div>
+                            <h3 class="text-lg sm:text-xl font-bold text-white mt-2">IPT Jeptha B. Duncan</h3>
+                            <p class="text-red-400 font-medium text-sm mt-1">Bachiller en Informática</p>
+                        </div>
+                    </div>
+
+                    <!-- Estudio 3: Pre-media IPT Jeptha B. Duncan -->
+                    <div class="relative pl-6 sm:pl-8 group">
+                        <span class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-zinc-700 border-2 border-red-500 group-hover:bg-red-500 transition-colors"></span>
+                        <div class="liquid-pill rounded-2xl p-5">
+                            <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
+                                <span class="font-mono text-xs text-gray-400">Educación Pre-media</span>
+                            </div>
+                            <h3 class="text-lg sm:text-xl font-bold text-white mt-1">IPT Jeptha B. Duncan</h3>
+                            <p class="text-gray-400 text-sm mt-1">Estudios Secundarios Básicos</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección: Más Información / Contacto -->
+        <section id="contacto" class="scroll-mt-28">
+            <div class="liquid-glass rounded-3xl p-8 sm:p-10 text-center relative overflow-hidden">
+                <div class="max-w-xl mx-auto space-y-6">
+                    <div class="w-14 h-14 rounded-2xl bg-red-600/20 border border-red-500/40 flex items-center justify-center text-red-500 mx-auto text-2xl">
+                        <i class="fa-brands fa-linkedin-in"></i>
+                    </div>
+                    
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white">¿Quieres saber más o conectar?</h2>
+                    <p class="text-gray-300 text-sm sm:text-base">
+                        Estoy abierto a conectar con profesionales, mentores y entusiastas de la ciberseguridad y la tecnología. Encuéntrame en LinkedIn.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
+                        <a href="https://www.linkedin.com/search/results/all/?keywords=Roderick%20Rivera" target="_blank" rel="noopener noreferrer" 
+                           class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-red-600 to-red-800 hover:from-red-500 hover:to-red-700 text-white font-bold shadow-lg shadow-red-600/30 transition-all flex items-center justify-center space-x-3">
+                            <i class="fa-brands fa-linkedin text-xl"></i>
+                            <span>LinkedIn: Roderick Rivera</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-xs opacity-75"></i>
+                        </a>
+
+                        <button onclick="copiarPerfil()" 
+                                class="w-full sm:w-auto px-6 py-4 rounded-2xl liquid-pill text-white font-medium hover:text-red-300 transition-all flex items-center justify-center space-x-2">
+                            <i class="fa-regular fa-copy text-red-500"></i>
+                            <span>Copiar nombre</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="relative z-10 border-t border-white/10 bg-black/60 backdrop-blur-md py-8">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-400">
+            <p>© <span id="year"></span> <strong class="text-white">Roderick Rivera</strong>. Todos los derechos reservados.</p>
+            <p class="font-mono text-gray-500">Panamá • Ciberseguridad & Tecnología</p>
+        </div>
+    </footer>
+
+    <!-- Notificación Toast (Reemplazo seguro de alert) -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none">
+        <div class="liquid-glass rounded-2xl px-5 py-3.5 border-red-500/50 flex items-center space-x-3 shadow-2xl">
+            <i class="fa-solid fa-circle-check text-red-500"></i>
+            <span class="text-sm font-medium text-white">Copiado: LinkedIn - Roderick Rivera</span>
+        </div>
+    </div>
+
+    <script>
+        // Actualizar año automáticamente en el footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Función para copiar información al portapapeles sin usar alert()
+        function copiarPerfil() {
+            const texto = "LinkedIn: Roderick Rivera";
+            const inputTemp = document.createElement("textarea");
+            inputTemp.value = texto;
+            document.body.appendChild(inputTemp);
+            inputTemp.select();
+            try {
+                document.execCommand("copy");
+                mostrarToast();
+            } catch (err) {
+                console.error("Error al copiar", err);
+            }
+            document.body.removeChild(inputTemp);
+        }
+
+        function mostrarToast() {
+            const toast = document.getElementById("toast");
+            toast.classList.remove("translate-y-24", "opacity-0");
+            toast.classList.add("translate-y-0", "opacity-100");
+
+            setTimeout(() => {
+                toast.classList.remove("translate-y-0", "opacity-100");
+                toast.classList.add("translate-y-24", "opacity-0");
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
